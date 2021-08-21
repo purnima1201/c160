@@ -46,6 +46,16 @@ AFRAME.registerComponent("cursor-events", {
         });
         }
     },
+    handleMouseEnterEvents: function() {
+        // Mouse Enter Events
+        this.el.addEventListener("mouseenter", () => {
+          const placeContainer = document.querySelector("#places-container");
+          const { state } = placeContainer.getAttribute("tour");
+          if (state === "places-list") {
+            this.handlePlacesListState();
+          }
+        });
+    },
     handlePlacesListState:function(){
         const id= this.el.getAttribute("id");
         const placesId = ["new-york-city","taj-mahal","eiffel-tower","budapest"];
@@ -60,25 +70,26 @@ AFRAME.registerComponent("cursor-events", {
             })
         }
     },
-    handleMouseEnterEvents:function(){
-        this.el.addEventListener("mouseenter",()=>{
-            this.handlePlacesListState()
-        })
-    },
-    handleMouseLeaveEvents:function(){
-        this.el.addEventListener("mouseleave",()=>{
-            const selectedItemId = this.data.selectedItemId;
-            if (selectedItemId){
-                const el = document.querySelector(`#${selectedItemId}`);
-                const id= el.getAttribute("id");
-                if(id==selectedItemId){
-                    el.setAttribute("material",{
-                        color:"blue",
-                        opacity:1
-                    })
-                }
+    
+    handleMouseLeaveEvents: function() {
+        // Mouse Leave Events
+        this.el.addEventListener("mouseleave", () => {
+          const placesContainer = document.querySelector("#places-container");
+          const { state } = placesContainer.getAttribute("tour");
+          if (state === "places-list") {
+            const { selectedItemId } = this.data;
+            if (selectedItemId) {
+              const el = document.querySelector(`#${selectedItemId}`);
+              const id = el.getAttribute("id");
+              if (id == selectedItemId) {
+                el.setAttribute("material", {
+                  color: "#0077CC",
+                  opacity: 1
+                });
+              }
             }
-        })
+          }
+        });
     },
     
 }) 

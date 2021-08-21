@@ -15,6 +15,23 @@ AFRAME.registerComponent("tour", {
     }
   },
 
+  hideEl:function(elList){
+    elList.map(
+      (el)=>{
+        el.setAttribute("visible",false);
+      }
+    )
+  },
+  showView:function(){
+    const {selectedCard} = this.data;
+
+    const skyEl =  document.querySelector("#main-container");
+    skyEl.setAttribute("material",{
+      src:`./assets/360_images/${selectedCard}/place-0.jpg`,
+      color:"white"
+    })
+  },
+
   createCards: function () {
     const thumbNailsRef = [
       {
@@ -110,21 +127,6 @@ AFRAME.registerComponent("tour", {
     return entityEl;
   },
 
-  hideEl:function(elList){
-    elList.map(
-      (el)=>{
-        el.setAttribute("visible",false);
-      }
-    )
-  },
-  showView:function(){
-    const {selectedCard} = this.data;
-
-    const skyEl =  document.querySelector("#main-container");
-    skyEl.setAttribute("material",{
-      src:`./assets/360_images/${selectedCard}/place-0.jpg`,
-      color:"white"
-    })
-  }
+  
   
 });
